@@ -4,6 +4,7 @@ import userRouter from './modules/user/user.router';
 import tourRouter from './modules/tour/tour.route';
 import { StatusCodes } from 'http-status-codes';
 import { bookingRouter } from './modules/booking/booking.route';
+import { globalErrorHandler } from './middlewares/globalErrorHandler';
 const app: Application = express();
 app.use(express.json());
 app.use(cors());
@@ -19,11 +20,5 @@ app.get('/', (req: Request, res: Response) => {
     message: 'Hello World!',
   });
 });
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  res.status(StatusCodes.BAD_REQUEST).json({
-    success: false,
-    message: err.message,
-    data: err,
-  });
-});
+app.use(globalErrorHandler);
 export default app;
