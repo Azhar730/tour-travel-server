@@ -43,12 +43,12 @@ const userSchema = new Schema<IUser>({
 //   this.find({ userStatus: { $ne: 'Inactive' } });
 //   next();
 // });
-userSchema.post('find', function (docs, next) {
-  docs.forEach((doc: IUser) => {
-    doc.name = doc.name.toUpperCase();
-  });
-  next();
-});
+// userSchema.post('find', function (docs, next) {
+//   docs.forEach((doc: IUser) => {
+//     doc.name = doc.name.toUpperCase();
+//   });
+//   next();
+// });
 // create model
 const UserModel = model<IUser>('User', userSchema);
 

@@ -1,10 +1,15 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, {
+  Application,
+  Request,
+  Response,
+} from 'express';
 import cors from 'cors';
 import userRouter from './modules/user/user.router';
 import tourRouter from './modules/tour/tour.route';
 import { StatusCodes } from 'http-status-codes';
 import { bookingRouter } from './modules/booking/booking.route';
 import { globalErrorHandler } from './middlewares/globalErrorHandler';
+
 const app: Application = express();
 app.use(express.json());
 app.use(cors());
@@ -21,4 +26,10 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 app.use(globalErrorHandler);
+app.use('*', (req: Request, res: Response) => {
+  res.status(StatusCodes.NOT_FOUND).json({
+    status: false,
+    message: 'Route not found',
+  });
+});
 export default app;
